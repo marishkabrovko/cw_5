@@ -33,3 +33,8 @@ class UsefulHabitDetailView(RetrieveAPIView):
 class UsefulHabitDeleteView(DestroyAPIView):
     queryset = UsefulHabit.objects.all()
     serializer_class = UsefulHabitSerializer
+
+
+class UsefulHabitUpdateView(generics.UpdateAPIView):
+    queryset = UsefulHabit.objects.all()
+    serializer_class = UsefulHabitSerializer

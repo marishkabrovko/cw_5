@@ -1,11 +1,17 @@
-from rest_framework import viewsets, generics
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, DestroyAPIView
+from rest_framework import generics
+from rest_framework.generics import (
+    CreateAPIView,
+    DestroyAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+)
 from rest_framework.permissions import IsAuthenticated
-from users.permissions import IsOwner
+from rest_framework.viewsets import ModelViewSet
+
 from tracker.models import PleasantHabit, UsefulHabit
-from tracker.serializers import PleasantHabitSerializer, UsefulHabitSerializer
 from tracker.paginators import HabitPagination
+from tracker.serializers import PleasantHabitSerializer, UsefulHabitSerializer
+from users.permissions import IsOwner
 
 
 class PleasantHabitViewSet(ModelViewSet):
@@ -45,22 +51,37 @@ class PublishedUsefulHabitListView(generics.ListAPIView):
 class UsefulHabitListView(ListAPIView):
     queryset = UsefulHabit.objects.all()
     serializer_class = UsefulHabitSerializer
-    pagination_class = HabitPagination
+    permission_classes = (IsAuthenticated, IsOwner)
+
+    def get_queryset(self):
+        user = self.request.user
+        return UsefulHabit.objects.filter(user=user)
 
 
 class UsefulHabitDetailView(RetrieveAPIView):
-    queryset = UsefulHabit.objects.all()
     serializer_class = UsefulHabitSerializer
-    permission_classes = (IsAuthenticated, IsOwner)
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        user = self.request.user
+        return UsefulHabit.objects.filter(user=user)
 
 
 class UsefulHabitDeleteView(DestroyAPIView):
-    queryset = UsefulHabit.objects.all()
+    # queryset = UsefulHabit.objects.all()
     serializer_class = UsefulHabitSerializer
-    permission_classes = (IsAuthenticated, IsOwner)
+    # permission_classes = (IsAuthenticated, IsOwner)
+
+    def get_queryset(self):
+        user = self.request.user
+        return UsefulHabit.objects.filter(user=user)
 
 
 class UsefulHabitUpdateView(generics.UpdateAPIView):
-    queryset = UsefulHabit.objects.all()
+    # queryset = UsefulHabit.objects.all()
     serializer_class = UsefulHabitSerializer
-    permission_classes = (IsAuthenticated, IsOwner)
+    # permission_classes = (IsAuthenticated, IsOwner)
+
+    def get_queryset(self):
+        user = self.request.user
+        return UsefulHabit.objects.filter(user=user)

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from tracker.models import UsefulHabit, PleasantHabit
+
+from tracker.models import PleasantHabit, UsefulHabit
 
 
 @admin.register(UsefulHabit)
@@ -11,6 +12,10 @@ class UsefulHabitAdmin(admin.ModelAdmin):
 
 @admin.register(PleasantHabit)
 class PleasantHabitAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "action",)
+    list_display = (
+        "id",
+        "user",
+        "action",
+    )
     search_fields = ("action",)
     ordering = ("id",)

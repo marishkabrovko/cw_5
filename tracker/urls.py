@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from tracker.apps import TrackerConfig
 from tracker.views import (PleasantHabitViewSet, UsefulHabitCreateView, UsefulHabitDeleteView, UsefulHabitDetailView,
-                           UsefulHabitListView, UsefulHabitUpdateView)
+                           UsefulHabitListView, UsefulHabitUpdateView, PublishedUsefulHabitListView)
 
 app_name = TrackerConfig.name
 
@@ -15,4 +15,5 @@ urlpatterns = [
     path("useful-habits/<int:pk>/", UsefulHabitDetailView.as_view(), name="useful_habit"),
     path("useful-habits/<int:pk>/delete/", UsefulHabitDeleteView.as_view(), name="delete_useful_habit"),
     path("useful-habits/<int:pk>/update/", UsefulHabitUpdateView.as_view(), name="update_useful_habit"),
+    path("useful-habits/published/", PublishedUsefulHabitListView.as_view(), name="published_useful_habits"),
 ] + router.urls

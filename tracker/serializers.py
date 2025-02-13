@@ -8,6 +8,9 @@ class UsefulHabitSerializer(ModelSerializer):
     periodicity = serializers.IntegerField(default=1, validators=[
         MaxValueValidator(7, message="Нельзя выполнять привычку реже 1 раза в 7 дней"),
         MinValueValidator(1, message="Минимальное значение не может быть меньше 1")])
+    duration = serializers.IntegerField(validators=[
+        MaxValueValidator(120, message="Максимальное время выполнения привычки 120 секунд"),
+        MinValueValidator(1, message="Минимальное время выполнения 1 секунда")])
 
     def validate(self, data):
         """Проверка выбора только одного поля варианта поощрения."""

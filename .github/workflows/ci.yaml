@@ -77,7 +77,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
           docker pull ${{ secrets.DOCKER_USERNAME }}/cw_5:${{ github.sha }}
-          docker stop tracker || true
-          docker rm tracker || true
-          docker run -d --name tracker -p 80:8000 ${{ secrets.DOCKER_USERNAME }}/cw_5:${{ github.sha }}
+          docker stop cw_5 || true
+          docker rm cw_5 || true
+          docker run -d --name cw_5 -p 80:8000 ${{ secrets.DOCKER_USERNAME }}/cw_5:${{ github.sha }}
           EOF

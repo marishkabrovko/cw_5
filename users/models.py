@@ -6,7 +6,10 @@ from phonenumber_field.modelfields import PhoneNumberField
 class User(AbstractUser):
     username = None
     email = models.EmailField(
-        unique=True, verbose_name="Email", help_text="Введите email"
+        unique=True,
+        verbose_name="Email",
+        help_text="Введите email",
+        max_length=150,
     )
     chat_id = models.CharField(
         max_length=50,
@@ -27,6 +30,7 @@ class User(AbstractUser):
         null=True,
         verbose_name="Телефон",
         help_text="Введите номер телефона",
+        max_length=12,
     )
     city = models.CharField(
         max_length=50,

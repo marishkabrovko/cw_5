@@ -72,6 +72,7 @@ class UsefulHabit(models.Model):
         help_text="Укажите продолжительность в секундах",
     )
     is_published = models.BooleanField(
+        max_length=5,
         verbose_name="Признак публичности",
         help_text="Опубликовать привычку?",
         default=True,

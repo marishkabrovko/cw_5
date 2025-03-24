@@ -1,10 +1,6 @@
 from rest_framework import generics
-from rest_framework.generics import (
-    CreateAPIView,
-    DestroyAPIView,
-    ListAPIView,
-    RetrieveAPIView,
-)
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, RetrieveAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -21,6 +17,7 @@ class PleasantHabitViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         pleasant_habit = serializer.save(user=self.request.user)
+        pleasant_habit.save()
 
     def get_queryset(self):
         user = self.request.user
@@ -37,6 +34,7 @@ class UsefulHabitCreateView(CreateAPIView):
 
     def perform_create(self, serializer):
         useful_habit = serializer.save(user=self.request.user)
+        useful_habit.save()
 
 
 class PublishedUsefulHabitListView(generics.ListAPIView):
